@@ -27,6 +27,7 @@ public:
     Q_INVOKABLE void toggleScale();
     Q_INVOKABLE void toggleShowDesktop();
     Q_INVOKABLE bool isAnyAppFocused();
+    Q_INVOKABLE void toggleRotationLock();
     
 Q_SIGNALS:
     void viewMapped(QString appId);

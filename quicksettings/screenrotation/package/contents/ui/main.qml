@@ -6,6 +6,8 @@ import QtQuick 2.15
 import org.kde.plasma.quicksetting.screenrotation 1.0
 import org.kde.plasma.private.mobileshell.quicksettingsplugin as QS
 
+import org.kde.plasma.private.mobileshell.wayfireipcplugin as WayfireIpcPlugin
+
 QS.QuickSetting {
     text: i18n("Auto-rotate")
     icon: "rotation-allowed"
@@ -14,6 +16,7 @@ QS.QuickSetting {
     available: ScreenRotationUtil.available
 
     function toggle() {
+         WayfireIpcPlugin.WayfireIPC.toggleRotationLock();
         ScreenRotationUtil.autoScreenRotationEnabled = !enabled
     }
 }

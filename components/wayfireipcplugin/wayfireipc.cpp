@@ -67,6 +67,15 @@ bool WayfireIPC::isAnyAppFocused()
     return anyAppFocused;
 }
 
+void WayfireIPC::toggleRotationLock()
+{
+    QJsonObject msgObj;
+    msgObj["method"] = "autorotate-iio/toggle-rotation-lock";
+
+    QJsonDocument jsonDoc = QJsonDocument(msgObj);
+    sendMessage(jsonDoc);
+}
+
 void WayfireIPC::onReadData()
 {
     qint64 bytesToRead = m_wfsocket->bytesAvailable();
