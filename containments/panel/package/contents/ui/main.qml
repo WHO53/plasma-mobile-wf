@@ -35,7 +35,7 @@ ContainmentItem {
     onPanelChanged: {
         if (panel) {
             panel.floating = false;
-            lockScreenLoader.active = true
+            lockScreenLoader.item.visible = true
         }
     }
 
@@ -89,7 +89,8 @@ ContainmentItem {
 
         function onPwrOnChanged() {
             if(!DpmsPlugin.WlrDpmsManagerV1.pwrOn){
-                lockScreenLoader.active = true
+                lockScreenLoader.item.visible = true
+                SessionLockPlugin.SessionLockManager.lock(lockScreenLoader.item);
             }
         }
     }
@@ -99,7 +100,7 @@ ContainmentItem {
 
         function onLockedChanged() {
             if(!SessionLockPlugin.SessionLockManager.locked)
-                lockScreenLoader.active = false
+                lockScreenLoader.item.visible = false
         }
     }
 
@@ -176,17 +177,11 @@ ContainmentItem {
     Loader {
         id: lockScreenLoader
         anchors.fill: parent
-        active: false
+        active: true
         asynchronous: true
         sourceComponent: SessionLockPlugin.LockScreen{
             visible: false
             notifModel: drawer.actionDrawer.notificationModel
-        }
-        visible: status == Loader.Ready
-
-        onStatusChanged: {
-            if(lockScreenLoader.status == Loader.Ready)
-                SessionLockPlugin.SessionLockManager.lock(lockScreenLoader.item);
         }
     }
 }
